@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peak Otel | Lüks & Butik Konaklama Deneyimi</title>
+  <meta name="description" content="Peak Otel - Zarafet, konfor ve panoramik çatı terasıyla kişiselleştirilmiş lüks butik otel ve konaklama deneyimi.">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23181716'/><text x='50%25' y='68%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='60' fill='%23b8935c' font-weight='bold'>P</text></svg>">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand-logo">
+        <span class="logo-main">PEAK OTEL</span>
+        <span class="logo-sub">BOUTIQUE & SUITES</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#rooms-section" class="nav-link">Odalarımız</a></li>
+          <li><a href="#terrace-section" class="nav-link">Teras & Restoran</a></li>
+          <li><a href="#amenities-section" class="nav-link">Ayrıcalıklar</a></li>
+          <li><a href="#contact-section" class="nav-link">İletişim</a></li>
+          <li><a href="/rezervasyonlarim" class="nav-link">Rezervasyonlarım</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div id="header-auth-container">
+        </div>
+        <a href="#rooms-section" class="btn btn-brass btn-sm header-book-btn">
+          <span>Rezervasyon Yap</span>
+        </a>
+        <button class="mobile-menu-btn" id="mobile-menu-toggle" onclick="toggleMobileNav()" aria-label="Menü">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+    <div class="mobile-nav-header">
+      <div class="brand-logo">
+        <span class="logo-main">PEAK OTEL</span>
+        <span class="logo-sub">BOUTIQUE & SUITES</span>
+      </div>
+      <span class="mobile-nav-close" onclick="toggleMobileNav()">&times;</span>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="#rooms-section" class="mobile-nav-item" onclick="toggleMobileNav()">Odalarımız</a>
+      <a href="#terrace-section" class="mobile-nav-item" onclick="toggleMobileNav()">Teras & Restoran</a>
+      <a href="#amenities-section" class="mobile-nav-item" onclick="toggleMobileNav()">Ayrıcalıklar</a>
+      <a href="#contact-section" class="mobile-nav-item" onclick="toggleMobileNav()">İletişim</a>
+      <a href="/rezervasyonlarim" class="mobile-nav-item" onclick="toggleMobileNav()">Rezervasyonlarım</a>
+    </div>
+    <div style="margin-top: auto; padding-top: 20px; border-top: var(--border-hairline); display: flex; flex-direction: column; gap: 12px;">
+      <a href="#rooms-section" class="btn btn-brass btn-sm" style="width: 100%; text-align: center;" onclick="toggleMobileNav()">
+        <span>Rezervasyon Yap</span>
+      </a>
+      <div id="mobile-drawer-auth-container"></div>
+    </div>
+  </div>
+  <div id="mobile-nav-backdrop" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(24,23,22,0.6); backdrop-filter: blur(4px); z-index: 2150;" onclick="toggleMobileNav()"></div>
+
+  <script>
+    function toggleMobileNav() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const backdrop = document.getElementById('mobile-nav-backdrop');
+      if (!drawer) return;
+      const isOpen = drawer.classList.contains('show');
+      if (isOpen) {
+        drawer.classList.remove('show');
+        if (backdrop) backdrop.style.display = 'none';
+        document.body.style.overflow = '';
+      } else {
+        drawer.classList.add('show');
+        if (backdrop) backdrop.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+  </script>
+  <section class="hero-section">
+    <img src="/images/hotel/otel.jpg" alt="Peak Otel Dış Cephe" class="hero-background-img">
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+      <span class="hero-eyebrow">SEÇKİN BUTİK KONAKLAMA</span>
+      <h1 class="hero-title">Zarafetin ve Huzurun Zirvesi</h1>
+      <p class="hero-subtitle">
+        Doğal taş mimarisi, özenle döşenmiş akustik yalıtımlı süitleri ve şehre tepeden bakan panoramik teras restoranıyla Peak Otel'e hoş geldiniz.
+      </p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="#rooms-section" class="btn btn-brass btn-lg">
+          Odaları İncele
+        </a>
+        <a href="#terrace-section" class="btn btn-outline btn-lg" style="color: #ffffff; border-color: rgba(255,255,255,0.4);">
+          Teras Deneyimi
+        </a>
+      </div>
+    </div>
+  </section>
+  <div class="container booking-search-bar">
+    <form id="booking-search-form" class="search-box-card">
+      <div class="search-field">
+        <label for="search-checkin">Giriş Tarihi</label>
+        <input type="date" id="search-checkin" required>
+      </div>
+
+      <div class="search-field">
+        <label for="search-checkout">Çıkış Tarihi</label>
+        <input type="date" id="search-checkout" required>
+      </div>
+
+      <div class="search-field">
+        <label for="search-guests">Misafir Sayısı</label>
+        <select id="search-guests">
+          <option value="1">1 Misafir</option>
+          <option value="2" selected>2 Misafir</option>
+          <option value="3">3 Misafir</option>
+          <option value="4">4 Misafir</option>
+        </select>
+      </div>
+
+      <div class="search-field">
+        <label for="search-room-type">Oda Tipi</label>
+        <select id="search-room-type">
+          <option value="all">Tüm Oda Tipleri</option>
+          <option value="Standart">Standart Odalar</option>
+          <option value="Superior">Superior Odalar</option>
+          <option value="Deluxe">Deluxe Odalar</option>
+          <option value="Family">Aile Süitleri</option>
+          <option value="Executive">Executive Süitler</option>
+          <option value="Suite">Romantik Süitler</option>
+          <option value="Penthouse">Teras & Penthouse</option>
+        </select>
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-brass btn-lg" style="height: 100%;">
+          🔍 Müsaitlik & Fiyat Ara
+        </button>
+      </div>
+    </form>
+  </div>
+  <section class="container" id="rooms-section" style="padding-bottom: 70px;">
+    <div class="section-header">
+      <span class="text-eyebrow">SEÇKİN MİSAFİR ODALARI</span>
+      <h2>Her Detayıyla Özel Tasarlanmış Süitler</h2>
+      <p>
+        101'den 302'ye kadar her biri farklı metrekare, manzara ve konseptte hazırlanan odalarımızda kusursuz konfor sizi bekliyor.
+      </p>
+    </div>
+    <div class="filter-bar">
+      <div class="category-tabs">
+        <button class="cat-tab active" data-category="all">Tüm Odalar</button>
+        <button class="cat-tab" data-category="Standart">Standart</button>
+        <button class="cat-tab" data-category="Superior">Superior</button>
+        <button class="cat-tab" data-category="Deluxe">Deluxe</button>
+        <button class="cat-tab" data-category="Family">Aile Süiti</button>
+        <button class="cat-tab" data-category="Executive">Executive</button>
+        <button class="cat-tab" data-category="Penthouse">Penthouse & Teras</button>
+      </div>
+
+      <div class="sort-select-wrapper">
+        <span>Sıralama:</span>
+        <select id="sort-rooms-select" class="sort-select">
+          <option value="default">Varsayılan (Oda No)</option>
+          <option value="price-asc">Fiyat: Düşükten Yükseğe</option>
+          <option value="price-desc">Fiyat: Yüksekten Düşüğe</option>
+          <option value="size-desc">Oda Büyüklüğü (m²)</option>
+        </select>
+      </div>
+    </div>
+    <div id="rooms-grid-container" class="rooms-grid"></div>
+  </section>
+  <section class="experience-section" id="terrace-section">
+    <div class="container">
+      <div class="experience-grid">
+        <div class="experience-image-wrap">
+          <img src="/images/hotel/teras.jpg" alt="Peak Teras Lounge & Restoran" class="experience-img">
+        </div>
+
+        <div class="experience-content">
+          <span class="text-eyebrow">ÇATI KATI GASTRONOMİ</span>
+          <h2>Peak Teras: Gökyüzünde Eşsiz Lezzetler</h2>
+          <p>
+            Otelimizin en üst katında yer alan Peak Teras, sabahları yerel organik ürünlerle hazırlanan zengin serpme kahvaltısı, akşamları ise gün batımına karşı servis edilen Akdeniz mutfağı seçkisiyle şehrin en seçkin buluşma noktasıdır.
+          </p>
+
+          <div class="experience-features">
+            <div class="exp-feat-item">
+              <span class="exp-feat-icon">🍳</span>
+              <div class="exp-feat-text">
+                <h4>Organik Gurme Kahvaltı</h4>
+                <p>Taze sıkılmış meyve suları ve taş fırın lezzetleri.</p>
+              </div>
+            </div>
+
+            <div class="exp-feat-item">
+              <span class="exp-feat-icon">🍸</span>
+              <div class="exp-feat-text">
+                <h4>İmza Kokteyl Barı</h4>
+                <p>Usta miksolojistlerimizden gün batımına özel reçeteler.</p>
+              </div>
+            </div>
+
+            <div class="exp-feat-item">
+              <span class="exp-feat-icon">🎻</span>
+              <div class="exp-feat-text">
+                <h4>Huzurlu Akustik Müzik</h4>
+                <p>Hafta sonları canlı caz ve akustik dinletiler.</p>
+              </div>
+            </div>
+
+            <div class="exp-feat-item">
+              <span class="exp-feat-icon">🌇</span>
+              <div class="exp-feat-text">
+                <h4>360° Panoramik Manzara</h4>
+                <p>Şehrin tarihi dokusunu tepeden izleme ayrıcalığı.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#rooms-section" class="btn btn-obsidian">
+            Konaklamanıza Teras Kahvaltısı Ekleyin
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="amenities-section" id="amenities-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="text-eyebrow">AYRICALIKLI HİZMETLER</span>
+        <h2>Konforunuz İçin Düşünülmüş Detaylar</h2>
+        <p>Peak Otel'de kaldığınız her an size özel bir butik ilgiyle taçlandırılır.</p>
+      </div>
+
+      <div class="amenities-grid">
+        <div class="amenity-card">
+          <div class="amenity-icon">🛎️</div>
+          <h3>24/7 Kişisel Konsiyerj</h3>
+          <p>Şehir turları, restoran rezervasyonları ve özel talepleriniz için günün her saati yanınızdayız.</p>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-icon">🚘</div>
+          <h3>VIP Havalimanı Transferi</h3>
+          <p>Lüks VIP araçlarımız ve profesyonel şoförlerimizle havalimanı ve otel arasında konforlu ulaşım.</p>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-icon">🌿</div>
+          <h3>Bütünsel Spa & Masaj</h3>
+          <p>Doğal bitkisel yağlar ve uzman terapistler eşliğinde tüm yorgunluğunuzu unutturacak seanslar.</p>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-icon">📶</div>
+          <h3>Yüksek Hızlı Fiber Wi-Fi</h3>
+          <p>Tüm odalarda ve ortak alanlarda kesintisiz, yüksek bant genişliğine sahip ücretsiz internet erişimi.</p>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-icon">🔇</div>
+          <h3>Akustik Ses Yalıtımı</h3>
+          <p>Çift katmanlı akustik camlar ve özel duvar izolasyonu ile şehir merkezinde tam bir sessizlik garantisi.</p>
+        </div>
+
+        <div class="amenity-card">
+          <div class="amenity-icon">☕</div>
+          <h3>Nespresso & Çay Barı</h3>
+          <p>Her odada ücretsiz kapsül kahve makinesi, gurme bitki çayları ve günlük taze su ikramları.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="contact-section" id="contact-section" style="padding: 70px 0 60px; background-color: var(--color-surface); border-top: var(--border-hairline);">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 36px;">
+        <span class="text-eyebrow">ULAŞIM & REZERVASYON</span>
+        <h2>Konum ve İletişim Bilgileri</h2>
+        <p>Kapadokya'nın kalbinde, eşsiz peri bacaları ve vadilere komşu huzurlu bir butik sığınak.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 980px; margin: 0 auto;" class="contact-cards-grid">
+        <div style="background: #ffffff; padding: 28px 24px; border-radius: var(--radius-sm); border: var(--border-hairline); text-align: center; box-shadow: var(--shadow-xs);">
+          <div style="font-size: 2.2rem; margin-bottom: 12px;">📍</div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 6px; color: var(--color-obsidian);">Otel Konumu</h4>
+          <p style="color: var(--color-stone); font-size: 0.92rem; line-height: 1.5;">Nevşehir, Türkiye</p>
+        </div>
+
+        <div style="background: #ffffff; padding: 28px 24px; border-radius: var(--radius-sm); border: var(--border-hairline); text-align: center; box-shadow: var(--shadow-xs);">
+          <div style="font-size: 2.2rem; margin-bottom: 12px;">📞</div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 6px; color: var(--color-obsidian);">Telefon & İletişim</h4>
+          <p style="color: var(--color-stone); font-size: 0.92rem; line-height: 1.5;">+90 (555) 555 55 55</p>
+        </div>
+
+        <div style="background: #ffffff; padding: 28px 24px; border-radius: var(--radius-sm); border: var(--border-hairline); text-align: center; box-shadow: var(--shadow-xs);">
+          <div style="font-size: 2.2rem; margin-bottom: 12px;">✉️</div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 6px; color: var(--color-obsidian);">Doğrudan E-Posta</h4>
+          <p style="color: var(--color-stone); font-size: 0.92rem; line-height: 1.5;">info@peakotel.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <span class="logo-main">PEAK OTEL</span>
+            <span class="logo-sub">BOUTIQUE & SUITES</span>
+          </div>
+          <p>
+            Kişiselleştirilmiş lüks, sessiz zarafet ve unutulmaz anlar için tasarlandı. Şehrin kalbinde ayrıcalıklı bir vaha.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Hızlı Bağlantılar</h4>
+          <ul class="footer-links">
+            <li><a href="#rooms-section" class="footer-link">Odalarımız & Fiyatlar</a></li>
+            <li><a href="#terrace-section" class="footer-link">Teras Restoran & Lounge</a></li>
+            <li><a href="#amenities-section" class="footer-link">Ayrıcalıklar & Spa</a></li>
+            <li><a href="/rezervasyonlarim" class="footer-link">Rezervasyonlarım</a></li>
+            <li><a href="#contact-section" class="footer-link">İletişim & Konum</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Oda Tipleri</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="Main.selectCategoryAndScroll('Standart')" class="footer-link">Standart Odalar</a></li>
+            <li><a href="javascript:void(0)" onclick="Main.selectCategoryAndScroll('Superior')" class="footer-link">Superior Odalar</a></li>
+            <li><a href="javascript:void(0)" onclick="Main.selectCategoryAndScroll('Deluxe')" class="footer-link">Deluxe Süitler</a></li>
+            <li><a href="javascript:void(0)" onclick="Main.selectCategoryAndScroll('Family')" class="footer-link">Aile Süitleri</a></li>
+            <li><a href="javascript:void(0)" onclick="Main.selectCategoryAndScroll('Executive')" class="footer-link">Executive Süitler</a></li>
+            <li><a href="javascript:void(0)" onclick="Main.selectCategoryAndScroll('Penthouse')" class="footer-link">Teras & Penthouse</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>İletişim & Rezervasyon</h4>
+          <div class="footer-contact-item">
+            <span>📍</span> Nevşehir
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span> +90 (555) 555 55 55
+          </div>
+          <div class="footer-contact-item">
+            <span>✉️</span> info@peakotel.com
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Peak Otel Boutique & Suites. Tüm hakları saklıdır.</div>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <a href="javascript:void(0)" style="color: inherit; opacity: 0.7;">Gizlilik Politikası</a>
+          <a href="javascript:void(0)" style="color: inherit; opacity: 0.7;">KVKK Aydınlatma Metni</a>
+          <a href="javascript:void(0)" style="color: inherit; opacity: 0.7;">Konaklama Koşulları</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/booking.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

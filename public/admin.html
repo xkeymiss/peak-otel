@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peak Otel | Yönetici & PMS Kontrol Paneli</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23181716'/><text x='50%25' y='68%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='60' fill='%23b8935c' font-weight='bold'>P</text></svg>">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <a href="/" class="brand-logo">
+          <span class="logo-main">PEAK OTEL</span>
+          <span class="logo-sub">YÖNETİM SİSTEMİ</span>
+        </a>
+        <span class="admin-badge">Admin Portalı</span>
+      </div>
+
+      <nav class="admin-nav">
+        <div class="admin-nav-item active" data-tab="dashboard">
+          <span class="admin-nav-icon">📊</span>
+          <span>Genel Bakış</span>
+        </div>
+        <div class="admin-nav-item" data-tab="calendar">
+          <span class="admin-nav-icon">📅</span>
+          <span>PMS Doluluk Takvimi</span>
+        </div>
+        <div class="admin-nav-item" data-tab="rooms">
+          <span class="admin-nav-icon">🛏️</span>
+          <span>Oda, Resim & Fiyat</span>
+        </div>
+        <div class="admin-nav-item" data-tab="bookings">
+          <span class="admin-nav-icon">📑</span>
+          <span>Tüm Rezervasyonlar</span>
+        </div>
+        <div class="admin-nav-item" data-tab="customers">
+          <span class="admin-nav-icon">👥</span>
+          <span>Kayıtlı Misafirler</span>
+        </div>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <div class="admin-user-info">
+          <div class="admin-user-details">
+            <span class="admin-user-name" id="admin-user-display">Yönetici</span>
+            <span class="admin-user-role">Sistem Yöneticisi</span>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="Auth.logout()" style="color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.2);">
+            Çıkış
+          </button>
+        </div>
+      </div>
+    </aside>
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-page-title">
+          <h2 id="admin-page-heading">Genel Bakış & Metrikler</h2>
+        </div>
+
+        <div class="admin-topbar-actions">
+          <a href="/" class="btn btn-outline btn-sm">
+            🌐 Müşteri Sitesini Gör
+          </a>
+          <button class="btn btn-brass btn-sm" onclick="Admin.resetCalendarToToday()">
+            ⚡ Bugüne Git
+          </button>
+        </div>
+      </header>
+      <div class="admin-content-body">
+        <section class="admin-tab-panel active" id="tab-dashboard">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Günlük Doluluk Oranı</span>
+                <span class="kpi-icon">📈</span>
+              </div>
+              <div class="kpi-value" id="kpi-occupancy">%0</div>
+              <div class="kpi-subtitle">Bugünkü aktif rezervasyon oranı</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Dolu / Toplam Oda</span>
+                <span class="kpi-icon">🔑</span>
+              </div>
+              <div class="kpi-value" id="kpi-occupied-rooms">0 / 9 Oda</div>
+              <div class="kpi-subtitle">Şu anda konaklayan misafirler</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Bugünkü Hareketlilik</span>
+                <span class="kpi-icon">🛎️</span>
+              </div>
+              <div class="kpi-value" id="kpi-today-checkins">0 Giriş</div>
+              <div class="kpi-subtitle">Check-in ve Check-out işlemleri</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Toplam Net Ciro</span>
+                <span class="kpi-icon">💰</span>
+              </div>
+              <div class="kpi-value" id="kpi-revenue" style="color: var(--color-brass-hover);">₺0</div>
+              <div class="kpi-subtitle">Tüm onaylı rezervasyon tutarı</div>
+            </div>
+          </div>
+          <div class="calendar-card" style="margin-bottom: 32px;">
+            <div class="calendar-card-header">
+              <div>
+                <h3 style="font-size: 1.15rem;">Hızlı Doluluk Takvimi</h3>
+                <p style="font-size: 0.8rem; color: var(--color-muted);">Odaların anlık doluluk durumunu takip edin.</p>
+              </div>
+              <button class="btn btn-outline-brass btn-sm" onclick="Admin.switchTab('calendar')">
+                Geniş Takvim Görünümü &rarr;
+              </button>
+            </div>
+          </div>
+          <div class="data-table-card">
+            <div class="data-table-toolbar">
+              <h3 style="font-size: 1.15rem;">Son Alınan Rezervasyonlar</h3>
+              <button class="btn btn-outline btn-sm" onclick="Admin.switchTab('bookings')">
+                Tümünü Yönet &rarr;
+              </button>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Rezervasyon Kodu</th>
+                    <th>Oda</th>
+                    <th>Misafir</th>
+                    <th>Tarihler</th>
+                    <th>Toplam Tutar</th>
+                    <th>Durum</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-bookings-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="admin-tab-panel" id="tab-calendar">
+          <div class="calendar-card">
+            <div class="calendar-card-header">
+              <div style="max-width: 440px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap;">
+                  <h3 style="font-size: 1.25rem; margin: 0;">Otel Doluluk & Zaman Çizelgesi (Matrix)</h3>
+                  <span id="calendar-current-range-badge" class="calendar-range-badge">Yükleniyor...</span>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--color-muted); margin: 0;">
+                  101'den 302'ye kadar odaların doluluk tablosu. İstediğiniz tarihe atlayabilir veya bloklara tıklayarak fiş detayını görebilirsiniz.
+                </p>
+              </div>
+
+              <div class="calendar-controls">
+                <div class="calendar-picker-group" title="Seçilen tarihe doğrudan git">
+                  <label for="calendar-date-picker" class="calendar-picker-label">
+                    <span>📅</span> Tarihe Git:
+                  </label>
+                  <input type="date" id="calendar-date-picker" class="form-input calendar-date-input" onchange="Admin.jumpToDate(this.value)">
+                </div>
+                <div class="calendar-quick-jump-group" title="Hızlı ay atlama">
+                  <select id="calendar-quick-jump" class="form-input calendar-select" onchange="Admin.quickJumpMonths(this.value)">
+                    <option value="" disabled selected>⚡ Hızlı Ay Atlama</option>
+                    <option value="0">Bugün / Bu Ay</option>
+                    <option value="1">+1 Ay Sonra</option>
+                    <option value="2">+2 Ay Sonra</option>
+                    <option value="3">+3 Ay Sonra</option>
+                    <option value="4">+4 Ay Sonra</option>
+                    <option value="5">+5 Ay Sonra</option>
+                    <option value="6">+6 Ay Sonra</option>
+                    <option value="12">+1 Yıl Sonra</option>
+                    <option value="-1">-1 Ay Önce</option>
+                    <option value="-3">-3 Ay Önce</option>
+                  </select>
+                </div>
+                <div class="calendar-duration-group" title="Görüntülenecek gün aralığı">
+                  <select id="calendar-days-select" class="form-input calendar-select" onchange="Admin.changeCalendarDays(this.value)">
+                    <option value="7">7 Gün</option>
+                    <option value="14" selected>14 Gün</option>
+                    <option value="21">21 Gün</option>
+                    <option value="30">30 Gün (Aylık)</option>
+                  </select>
+                </div>
+                <div class="calendar-nav-buttons">
+                  <button class="btn btn-outline btn-sm" onclick="Admin.shiftCalendar(-7)" title="7 Gün Geri">
+                    &larr; Önceki 7 Gün
+                  </button>
+                  <button class="btn btn-outline btn-sm" onclick="Admin.resetCalendarToToday()" title="Bugünkü Tarihe Dön">
+                    Bugün
+                  </button>
+                  <button class="btn btn-outline btn-sm" onclick="Admin.shiftCalendar(7)" title="7 Gün İleri">
+                    Sonraki 7 Gün &rarr;
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="calendar-matrix-wrapper">
+              <table id="calendar-matrix-table" class="calendar-matrix-table"></table>
+            </div>
+          </div>
+        </section>
+        <section class="admin-tab-panel" id="tab-rooms">
+          <div class="data-table-card">
+            <div class="data-table-toolbar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h3 style="font-size: 1.25rem;">Oda Envanteri, Fiyat & Detay Yönetimi</h3>
+                <p style="font-size: 0.82rem; color: var(--color-muted);">
+                  Fotoğraf, fiyat, oda adı, kategorisi, boyutu, yatak tipi, açıklaması ve tüm olanaklarını tek yerden düzenleyin.
+                </p>
+              </div>
+              <button class="btn btn-brass btn-sm" onclick="Admin.openCreateRoomModal()">
+                ➕ Yeni Oda Ekle
+              </button>
+            </div>
+
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th style="width: 140px;">Oda Fotoğrafı</th>
+                    <th>Oda No & Adı</th>
+                    <th>Kategori</th>
+                    <th>Kat & Alan</th>
+                    <th>Kapasite</th>
+                    <th>Gecelik Fiyat</th>
+                    <th>Durum</th>
+                    <th style="text-align: right; min-width: 140px;">İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="rooms-management-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="admin-tab-panel" id="tab-bookings">
+          <div class="data-table-card">
+            <div class="data-table-toolbar">
+              <div>
+                <h3 style="font-size: 1.25rem;">Tüm Misafir Rezervasyonları</h3>
+                <p style="font-size: 0.82rem; color: var(--color-muted);">
+                  Misafirlerin giriş/çıkış durumlarını güncelleyin veya rezervasyon fişlerini görüntüleyin.
+                </p>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <input type="text" id="booking-search-input" class="form-input" placeholder="Kod, İsim veya Oda ara..." style="width: 240px; padding: 8px 12px;" oninput="Admin.loadBookings()">
+                <select id="booking-status-filter" class="form-input" style="width: 160px; padding: 8px 12px;" onchange="Admin.loadBookings()">
+                  <option value="all">Tüm Durumlar</option>
+                  <option value="confirmed">Onaylandı</option>
+                  <option value="checked_in">Giriş Yapıldı</option>
+                  <option value="checked_out">Çıkış Yapıldı</option>
+                  <option value="cancelled">İptal Edildi</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Kod</th>
+                    <th>Oda</th>
+                    <th>Misafir</th>
+                    <th>Tarih Aralığı</th>
+                    <th>Tutar</th>
+                    <th>Durum Yönetimi</th>
+                    <th>Fiş / Fatura</th>
+                  </tr>
+                </thead>
+                <tbody id="bookings-management-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="admin-tab-panel" id="tab-customers">
+          <div class="data-table-card">
+            <div class="data-table-toolbar">
+              <div>
+                <h3 style="font-size: 1.25rem;">Kayıtlı Misafir Portföyü</h3>
+                <p style="font-size: 0.82rem; color: var(--color-muted);">Peak Otel misafirlerinin geçmiş konaklama ve harcama istatistikleri.</p>
+              </div>
+            </div>
+
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Ad Soyad</th>
+                    <th>E-Posta</th>
+                    <th>Telefon</th>
+                    <th>Kayıt Tarihi</th>
+                    <th>Rezervasyon Sayısı</th>
+                    <th>Toplam Harcama</th>
+                  </tr>
+                </thead>
+                <tbody id="customers-management-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/booking.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
